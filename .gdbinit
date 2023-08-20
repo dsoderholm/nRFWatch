@@ -4,3 +4,4 @@ monitor speed auto
 file .pio/build/smaq3/firmware.elf
 load
 monitor reset
+tbreak main

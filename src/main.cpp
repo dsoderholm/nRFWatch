@@ -10,14 +10,15 @@
 
 void main(void)
 {
-
-
-	const struct device * dev = device_get_binding("GPIO_P");
-    // configure the LED pin as output
-    gpio_pin_configure(dev, BACK_LIGHT, GPIO_OUTPUT);
+	const struct device * dev = device_get_binding("GPIO_0");
+    gpio_pin_configure(dev, 7, GPIO_OUTPUT);
+	gpio_pin_configure(dev, 8, GPIO_OUTPUT);
+	gpio_pin_configure(dev, 9, GPIO_OUTPUT);
 
 	while (1) {
-		gpio_pin_toggle(dev, BACK_LIGHT);
+		gpio_pin_set(dev, 7, 0);
+		gpio_pin_set(dev, 8, 0);
+		gpio_pin_set(dev, 9, 0);
 		k_msleep(SLEEP_TIME_MS);
 	}
 }
