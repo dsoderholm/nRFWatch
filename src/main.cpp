@@ -1,9 +1,9 @@
 
+#include <stdio.h>
 #include <zephyr.h>
 #include <device.h>
 #include <drivers/gpio.h>
 #include <nrfx_saadc.h>
-
 
 #define SLEEP_TIME_MS   1000
 
@@ -33,13 +33,16 @@ void main(void)
 
 	gpio_pin_configure(gpio_dev, 8, GPIO_OUTPUT);
 	gpio_pin_set(gpio_dev, 8, 1);
-	nrf_saadc_value_t buffer[10];
-	uint16_t size = 10;
-	nrfx_saadc_buffer_set(buffer, size);
+	nrf_saadc_value_t buffer;
+	uint16_t size = 1;
+	nrfx_saadc_simple_mode_set(1, NRF_SAADC_RESOLUTION_10BIT, NRF_SAADC_OVERSAMPLE_4X, NULL);
+	nrfx_saadc_buffer_set(&buffer, size);
 	while (1) {
 		
 		//ADC_0
 		(void)nrfx_saadc_mode_trigger();
+
+		printf("test: %d", buffer);
 		k_msleep(SLEEP_TIME_MS);
 	}
 }
